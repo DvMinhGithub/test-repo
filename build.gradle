@@ -1,0 +1,57 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.0'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+apply plugin: 'java'
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// imp spring security
+	implementation group: 'org.springframework.security', name: 'spring-security-core', version: '6.2.0'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	// jwt
+	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+//	compileOnly 'javax.xml.bind:jaxb-api:2.1'
+
+	implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
+	implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.1.1'
+	implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.529')
+	implementation 'com.amazonaws:aws-java-sdk-s3'
+	implementation group: 'com.google.code.gson', name: 'gson', version: '2.7'
+//	implementation group: 'io.lettuce', name: 'lettuce-core', version: '6.3.1.RELEASE'
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.2.0'
+	implementation group: 'redis.clients', name: 'jedis', version: '5.1.0'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '3.2.2'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '3.2.2'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-oauth2-client', version: '3.2.2'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '3.2.3'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

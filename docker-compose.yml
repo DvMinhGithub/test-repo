@@ -1,0 +1,46 @@
+version: "3"
+
+services:
+  be:
+    container_name: be
+    environment:
+      - ENVIRONMENT_NAME=prod
+    restart: always
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql_db
+      - redis_db
+    networks:
+      - clothes_network
+    volumes:
+      - /var/www/images:/images
+  mysql_db:
+    image: mysql:8.0.35
+    container_name: mysql_db
+    restart: always
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=Loi65732102.1
+      - MYSQL_DATABASE=clothes
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    networks:
+      - clothes_network
+  redis_db:
+    image: redis:7.2.4
+    container_name: redis_db
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - clothes_network
+    volumes:
+      - ./redis_data:/data
+networks:
+  clothes_network:
+    driver: bridge
